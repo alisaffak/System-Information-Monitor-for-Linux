@@ -71,23 +71,25 @@ bool SystemInfo::getMemoryInfo(int &total, int &free, int &used)
     QString commonExec = "/proc/meminfo";                            //terminalde ram bilgisini verecek komutlar
     QString totalExec = "/MemTotal/ { print $2 } ";
     QString freeExec = "/MemFree/ { print $2 } ";
-
-
+    
     QProcess memInfo;
-
     memInfo.start("awk", QStringList() << totalExec << commonExec);
     memInfo.waitForFinished();
     QString memoryTot = memInfo.readAllStandardOutput();
+    
     if(memoryTot.isEmpty())
         return false;
+    
     bool b= false;
     total = memoryTot.toInt(&b)/1024;
+    
     if(!b)        
         return false;
 
     memInfo.start("awk",QStringList() << freeExec << commonExec);
     memInfo.waitForFinished();
     QString memoryAv = memInfo.readAllStandardOutput();
+    
     if(memoryAv.isEmpty())
         return false;
 
@@ -96,7 +98,6 @@ bool SystemInfo::getMemoryInfo(int &total, int &free, int &used)
        return false;
 
    used = total - free;
-
    return true;
 }
 
@@ -132,7 +133,7 @@ void SystemInfo::threadFunc()
         if(getCpuInfo(cpuInfo))
             setCpuValue(cpuInfo);
     }
-
+    
     emit sigThreadFinished();
 }
 
