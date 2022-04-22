@@ -9,7 +9,6 @@ class SystemInfo : public QObject
 public:
     explicit SystemInfo(QObject *parent = nullptr);
     ~SystemInfo();
-
     float getCpuValue();
     bool getSdaInfo(qint64 &bytesTotal, qint64 &bytesAvailable, qint64 &bytesFree);
     bool getMemoryInfo(int &total,int &free,int &used);
