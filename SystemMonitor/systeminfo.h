@@ -17,12 +17,9 @@ public:
 private:
     float m_cpuValue;
     QMutex m_mutex;
-
     void start();
     void stop();
-
     bool getCpuInfo(float &value);
-
     void setCpuValue(float value);
 
 public slots:
@@ -30,8 +27,6 @@ public slots:
 
 signals:
     void sigThreadFinished();
-
-
 };
 
 #endif // SYSTEMINFO_H
